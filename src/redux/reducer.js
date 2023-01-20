@@ -33,25 +33,26 @@ export const cartReducer = createReducer(
         }
         else{
           state.cartItems = state.cartItems.filter(i=>i.id!==action.payload)
-          
+
         }
         
   },
 
   deleteFromCart :(state,action)=> {
            state.cartItems = state.cartItems.filter(i=>i.id!==action.payload)
+           
   },
 
   calculatePrice:(state)=>{
 
-    let sum = 0;
-    state.cartItems.forEach((i)=>(sum+=i.price*i.quantity));
-    state.subTotal = sum;
-    state.shipping = state.subTotal > 1000 ? 0 : state.subTotal = 0 ? 0 : 20;
-
-
-    state.tax = +(state.subTotal*0.001).toFixed();
-    state.total=state.subTotal+state.shipping+state.tax;
+  let sum = 0;
+      state.cartItems.forEach((i) => (sum += i.price * i.quantity));
+      state.subTotal = sum;
+      state.shipping = state.subTotal > 1000 ? 0 
+                      
+                       : 20;
+      state.tax = +(state.subTotal * 0.05).toFixed();
+      state.total = state.subTotal + state.tax + state.shipping;
   }
 }
 );
